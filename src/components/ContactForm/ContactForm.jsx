@@ -1,56 +1,67 @@
+import { ErrorMessage, Field, Form, Formik } from 'formik'
 import css from './ContactForm.module.css'
+import * as Yup from 'yup'
+import {
+  max_name_length,
+  max_number_length,
+  min_name_length,
+  min_number_length,
+} from '../../utils/constants'
+
+const contactFormSchema = Yup.object({
+  name: Yup.string()
+    .required('Name is required!')
+    .matches(
+      /^[a-zA-Zа-яА-ЯіІїЇєЄґҐ\s]+$/,
+      'Name can only contain letters and spaces'
+    )
+    .min(min_name_length, 'Name must be at least 3 characters')
+    .max(max_name_length, 'Name cannot be longer than 50 characters'),
+  number: Yup.string()
+    .min(min_number_length, 'Number must be at least 3 characters')
+    .matches(/^[-+\d() ]+$/, 'Invalid phone number format')
+    .max(
+      max_number_length,
+      'Contact telephone number cannot be longer than 50 characters'
+    ),
+})
+
+const form_Initial_Values = {
+  name: '',
+  number: '',
+}
 const ContactForm = ({ onAddContact }) => {
-  const handleSubmitEvent = (event) => {
-    event.preventDefault()
-
-    const name = event.currentTarget.elements.name.value
-    const number = event.currentTarget.elements.number.value
-    const formData = { name, number }
-
-    if (!/^[a-zA-Zа-яА-ЯіІїЇєЄґҐ\s ]+$/.test(formData.name)) {
-      alert('Only letters are allowed in the Name field')
-      return
-    }
-    if (!/^[0-9()+\- ]+$/.test(formData.number)) {
-      alert('Only numbers, spaces, +, (, ), and - are allowed')
-      return
-    }
-    onAddContact(formData)
-    event.currentTarget.reset()
+  const handleSubmitEvent = (values, actions) => {
+    onAddContact(values)
+    actions.resetForm()
   }
   return (
     <div>
-      <form className={css.contactForm} onSubmit={handleSubmitEvent}>
-        <label>
-          <span>Name</span>
+      <Formik
+        initialValues={form_Initial_Values}
+        validationSchema={contactFormSchema}
+        onSubmit={handleSubmitEvent}
+      >
+        <Form className={css.contactForm}>
+          <label>
+            <span>Name</span>
+            <br />
+            <Field className={css.contactFormInput} type="text" name="name" />
+            <ErrorMessage component="p" name="name" />
+          </label>
           <br />
-          <input
-            className={css.contactFormInput}
-            type="text"
-            name="name"
-            required
-            minLength={3}
-            maxLength={50}
-          />
-        </label>
-        <br />
-        <label>
-          <span>Number</span>
+          <label>
+            <span>Number</span>
+            <br />
+            <Field className={css.contactFormInput} type="tel" name="number" />
+            <ErrorMessage component="p" name="number" />
+          </label>
           <br />
-          <input
-            className={css.contactFormInput}
-            type="tel"
-            name="number"
-            required
-            minLength={3}
-            maxLength={50}
-          />
-        </label>
-        <br />
-        <button className={css.contactFormBtn} type="submit">
-          Add contact
-        </button>
-      </form>
+          <button className={css.contactFormBtn} type="submit">
+            Add contact
+          </button>
+        </Form>
+      </Formik>
     </div>
   )
 }
