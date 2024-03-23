@@ -1,3 +1,4 @@
+import css from './ContactForm.module.css'
 const ContactForm = ({ onAddContact }) => {
   const handleSubmitEvent = (event) => {
     event.preventDefault()
@@ -6,7 +7,7 @@ const ContactForm = ({ onAddContact }) => {
     const number = event.currentTarget.elements.number.value
     const formData = { name, number }
 
-    if (!/^[a-zA-Z]+$/.test(formData.name)) {
+    if (!/^[a-zA-Z ]+$/.test(formData.name)) {
       alert('Only letters are allowed in the Name field')
       return
     }
@@ -19,11 +20,12 @@ const ContactForm = ({ onAddContact }) => {
   }
   return (
     <div>
-      <form onSubmit={handleSubmitEvent}>
+      <form className={css.contactForm} onSubmit={handleSubmitEvent}>
         <label>
           <span>Name</span>
           <br />
           <input
+            className={css.contactFormInput}
             type="text"
             name="name"
             required
@@ -36,6 +38,7 @@ const ContactForm = ({ onAddContact }) => {
           <span>Number</span>
           <br />
           <input
+            className={css.contactFormInput}
             type="tel"
             name="number"
             required
@@ -44,7 +47,9 @@ const ContactForm = ({ onAddContact }) => {
           />
         </label>
         <br />
-        <button type="submit">Add contact</button>
+        <button className={css.contactFormBtn} type="submit">
+          Add contact
+        </button>
       </form>
     </div>
   )
