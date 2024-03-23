@@ -27,8 +27,8 @@ const contactFormSchema = Yup.object({
   favColor: Yup.string()
     .required('Favourite color is required!')
     .oneOf(
-      ['red', 'green', 'blue', 'yellow'],
-      'Favourite color must be: red, green, blue, yellow'
+      ['red', 'green', 'blue', 'orange'],
+      'Favourite color must be: red, green, blue, orange'
     ),
 })
 
@@ -64,19 +64,25 @@ const ContactForm = ({ onAddContact }) => {
             <ErrorMessage component="p" name="number" />
           </label>
           <br />
+          <span>Favourite color:</span>
           <label>
-            <span>Favourite color:</span>
             <br />
             <span className={css.redColor}>Red:</span>
             <Field type="radio" value="red" name="favColor" />
+          </label>
+          <label>
             <span className={css.greenColor}>Green:</span>
             <Field type="radio" value="green" name="favColor" />
+          </label>
+          <label>
             <span className={css.blueColor}>Blue:</span>
             <Field type="radio" value="blue" name="favColor" />
+          </label>
+          <label>
             <span className={css.orangeColor}>Orange:</span>
             <Field type="radio" value="orange" name="favColor" />
-            <ErrorMessage component="p" name="favColor" />
           </label>
+          <ErrorMessage component="p" name="favColor" />
           <br />
           <button className={css.contactFormBtn} type="submit">
             Add contact
