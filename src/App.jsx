@@ -21,6 +21,11 @@ function App() {
   useEffect(() => {
     setContactsList(contactsData)
   }, [])
+  const onDeleteContact = (contactId) => {
+    setContactsList((prevContact) =>
+      prevContact.filter((contact) => contact.id !== contactId)
+    )
+  }
 
   return (
     <div>
