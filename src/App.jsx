@@ -14,10 +14,20 @@ function App() {
     return JSON.parse(stringingifiedContacts)
   })
 
+  const [filter, setFilter] = useState('')
+
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contactsList))
   }, [contactsList])
 
+  useEffect(() => {
+    const stringingifiedContacts = localStorage.getItem('contacts')
+    if (stringingifiedContacts.length > 0 && stringingifiedContacts) {
+      setContactsList(JSON.parse(stringingifiedContacts))
+    } else {
+      setContactsList(contactsData)
+    }
+  }, [])
   const onAddContact = (formData) => {
     const finalContact = {
       ...formData,
@@ -32,22 +42,23 @@ function App() {
       prevContacts.filter((contact) => contact.id !== contactId)
     )
   }
+  const onChangeFilter = (event) => {
+    setFilter(event.target.value)
+  }
 
-  useEffect(() => {
-    const stringingifiedContacts = localStorage.getItem('contacts')
-    if (stringingifiedContacts) {
-      setContactsList(JSON.parse(stringingifiedContacts))
-    } else {
-      setContactsList(contactsData)
-    }
-  }, [])
+  const filteredContacts = contactsList.filter((contact) =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  )
 
   return (
     <div>
       <h1 className={css.appTitle}>Phonebook</h1>
       <ContactForm onAddContact={onAddContact} />
-      <SearchBox />
-      <ContactList contacts={contactsList} onDeleteContact={onDeleteContact} />
+      <SearchBox filter={filter} onChangeFilter={onChangeFilter} />
+      <ContactList
+        contacts={filteredContacts}
+        onDeleteContact={onDeleteContact}
+      />
       <Contact />
     </div>
   )

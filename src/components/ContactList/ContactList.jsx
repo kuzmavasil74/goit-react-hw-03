@@ -1,7 +1,6 @@
 import css from './ContactList.module.css'
 
 const ContactList = ({ contacts, onDeleteContact }) => {
-  // console.log(contacts)
   return (
     <div className={css.contactListMainContainer}>
       {contacts.map((contact) => {
@@ -18,7 +17,7 @@ const ContactList = ({ contacts, onDeleteContact }) => {
               className={css.cantactListBtn}
             >
               {' '}
-              Delete
+              ❌ Delete
             </button>
           </div>
         )
