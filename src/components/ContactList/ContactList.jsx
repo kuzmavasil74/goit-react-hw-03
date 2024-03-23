@@ -7,7 +7,13 @@ const ContactList = ({ contacts, onDeleteContact }) => {
         return (
           <div className={css.contactCart} key={contact.id}>
             <ul className={css.contactList}>
-              <li className={css.contactListItem}>👨‍🦱 {contact.name}</li>
+              <li className={css.contactListItem}>
+                <div
+                  style={{ backgroundColor: contact.favColor }}
+                  className={css.color}
+                />
+                👨‍🦱 {contact.name}
+              </li>
 
               <li className={css.contactListItem}>☎️ {contact.number}</li>
             </ul>

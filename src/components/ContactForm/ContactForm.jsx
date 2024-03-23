@@ -24,11 +24,18 @@ const contactFormSchema = Yup.object({
       max_number_length,
       'Contact telephone number cannot be longer than 50 characters'
     ),
+  favColor: Yup.string()
+    .required('Favourite color is required!')
+    .oneOf(
+      ['red', 'green', 'blue', 'yellow'],
+      'Favourite color must be: red, green, blue, yellow'
+    ),
 })
 
 const form_Initial_Values = {
   name: '',
   number: '',
+  favColor: '',
 }
 const ContactForm = ({ onAddContact }) => {
   const handleSubmitEvent = (values, actions) => {
@@ -55,6 +62,20 @@ const ContactForm = ({ onAddContact }) => {
             <br />
             <Field className={css.contactFormInput} type="tel" name="number" />
             <ErrorMessage component="p" name="number" />
+          </label>
+          <br />
+          <label>
+            <span>Favourite color:</span>
+            <br />
+            <span className={css.redColor}>Red:</span>
+            <Field type="radio" value="red" name="favColor" />
+            <span className={css.greenColor}>Green:</span>
+            <Field type="radio" value="green" name="favColor" />
+            <span className={css.blueColor}>Blue:</span>
+            <Field type="radio" value="blue" name="favColor" />
+            <span className={css.orangeColor}>Orange:</span>
+            <Field type="radio" value="orange" name="favColor" />
+            <ErrorMessage component="p" name="favColor" />
           </label>
           <br />
           <button className={css.contactFormBtn} type="submit">
