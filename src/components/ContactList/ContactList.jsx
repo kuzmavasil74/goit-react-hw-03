@@ -1,6 +1,6 @@
 import css from './ContactList.module.css'
 
-const ContactList = ({ contacts }) => {
+const ContactList = ({ contacts, onDeleteContact }) => {
   // console.log(contacts)
   return (
     <div className={css.contactListMainContainer}>
@@ -12,7 +12,14 @@ const ContactList = ({ contacts }) => {
 
               <li className={css.contactListItem}>☎️ {contact.number}</li>
             </ul>
-            <button className={css.cantactListBtn}> Delete</button>
+            <button
+              type="button"
+              onClick={() => onDeleteContact(contact.id)}
+              className={css.cantactListBtn}
+            >
+              {' '}
+              Delete
+            </button>
           </div>
         )
       })}

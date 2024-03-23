@@ -7,12 +7,12 @@ const ContactForm = ({ onAddContact }) => {
     const number = event.currentTarget.elements.number.value
     const formData = { name, number }
 
-    if (!/^[a-zA-Z ]+$/.test(formData.name)) {
+    if (!/^[a-zA-Zа-яА-ЯіІїЇєЄґҐ\s ]+$/.test(formData.name)) {
       alert('Only letters are allowed in the Name field')
       return
     }
-    if (!/^[0-9-]+$/.test(formData.number)) {
-      alert('Only numbers and hyphens are permitted in the Number field')
+    if (!/^[0-9()+\- ]+$/.test(formData.number)) {
+      alert('Only numbers, spaces, +, (, ), and - are allowed')
       return
     }
     onAddContact(formData)
