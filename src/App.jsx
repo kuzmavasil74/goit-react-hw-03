@@ -5,6 +5,7 @@ import contactsData from './contacts.json'
 import Contact from './components/Contact/Contact'
 import { useEffect, useState } from 'react'
 import { nanoid } from 'nanoid'
+import css from './App.module.css'
 
 function App() {
   const [contactsList, setContactsList] = useState([])
@@ -16,14 +17,14 @@ function App() {
 
     setContactsList((prevState) => [...prevState, finalContact])
   }
-  console.log(setContactsList.finalContact)
+  // console.log(setContactsList.finalContact)
   useEffect(() => {
     setContactsList(contactsData)
   }, [])
 
   return (
     <div>
-      <h1>Phonebook</h1>
+      <h1 className={css.appTitle}>Phonebook</h1>
       <ContactForm onAddContact={onAddContact} />
       <SearchBox />
       <ContactList contacts={contactsList} />

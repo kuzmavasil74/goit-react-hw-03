@@ -1,9 +1,9 @@
 import css from './ContactList.module.css'
 
 const ContactList = ({ contacts }) => {
-  console.log(contacts)
+  // console.log(contacts)
   return (
-    <>
+    <div className={css.contactListMainContainer}>
       {contacts.map((contact) => {
         return (
           <div className={css.contactCart} key={contact.id}>
@@ -16,7 +16,7 @@ const ContactList = ({ contacts }) => {
           </div>
         )
       })}
-    </>
+    </div>
   )
 }
 

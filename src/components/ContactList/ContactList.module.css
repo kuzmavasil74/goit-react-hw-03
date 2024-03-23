@@ -1,9 +1,14 @@
+.contactListMainContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 .contactCart {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  width: 250px;
+  min-width: 250px;
   height: auto;
   padding: 10px;
   margin-bottom: 10px;
