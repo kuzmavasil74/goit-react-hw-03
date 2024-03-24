@@ -20,14 +20,6 @@ function App() {
     localStorage.setItem('contacts', JSON.stringify(contactsList))
   }, [contactsList])
 
-  useEffect(() => {
-    const stringingifiedContacts = localStorage.getItem('contacts')
-    if (stringingifiedContacts.length > 0 && stringingifiedContacts) {
-      setContactsList(JSON.parse(stringingifiedContacts))
-    } else {
-      setContactsList(contactsData)
-    }
-  }, [])
   const onAddContact = (formData) => {
     const finalContact = {
       ...formData,
